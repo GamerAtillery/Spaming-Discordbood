@@ -20,6 +20,11 @@ class SpamingBoot(discord.Client):
         print(message.content)
         if(message.content.lower().startswith("!id")):
             await message.channel.send("Your ID is: "+str(message.author.id))
+        if (message.content.lower().startswith("!spam")):
+            iUserid = self.getid(message.content)
+            user:discord.User = await self.fetch_user(iUserid)
+            user.send()
+
 
 
 
