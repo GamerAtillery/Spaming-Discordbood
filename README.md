@@ -6,3 +6,5 @@
 
 ## Required pip libarys
 - discord (pip install discord)
+
+## Discord Bot Commands
