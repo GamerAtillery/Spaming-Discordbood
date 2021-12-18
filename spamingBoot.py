@@ -1,3 +1,4 @@
+from re import U
 import discord
 import conf
 
@@ -6,30 +7,44 @@ import conf
 
 class SpamingBoot(discord.Client):
     async def on_ready(self):
-        user = await self.fetch_user(295212845828931584)
-        await user.send("es klappt")
-        print(user)
         print("ich habe mich eingeloggt.")
-        for i in range(5):
-            try:
-                print(next(self.get_all_members()))
-            except:
-                break
+
 
     async def on_message(self, message:discord.Message):
         print(message.content)
         if(message.content.lower().startswith("!id")):
             await message.channel.send("Your ID is: "+str(message.author.id))
         if (message.content.lower().startswith("!spam")):
-            iUserid = self.getid(message.content)
-            user:discord.User = await self.fetch_user(iUserid)
-            user.send()
+            for iUserid in self.getid(message.content):
+                try:
+                    user:discord.User = await self.fetch_user(iUserid)
+                    await self.spamToUser(user)
+                except Exception as e:
+                    print(e)
 
 
+    async def spamToUser(self, user:discord.User):
+        await user.send("test", delete_after=5.0)
+        return
 
+    def getid(self, eingabe:str)->list[int]:
+        lTags = []
+        sEingabe = str(eingabe)
+        bAdd = False
+        iPos = 0
+        for z in list(sEingabe):
+            if z == "<":
+                bAdd = True
+                iPos = iPos + 1
+                lTags.append("")                
+            if z == ">":
+                bAdd = False
+                lTags[iPos] = int(lTags[iPos])
+            if bAdd == True and z.isdigit():
+                lTags[iPos] = lTags[iPos] + z
+        print(lTags)
+        return lTags
 
-    def getid(eingabe:str)->int:
-        return 295212845828931584
         
 
 if __name__ == '__main__': 
