@@ -1,4 +1,5 @@
 import discord
+from discord.guild import Guild
 import conf
 
 
@@ -6,11 +7,22 @@ import conf
 
 class SpamingBoot(discord.Client):
     async def on_ready(self):
+        user = await self.fetch_user(295212845828931584)
+        await user.send("es klappt")
+        print(user)
         print("ich habe mich eingeloggt.")
+        for i in range(5):
+            try:
+                print(next(self.get_all_members()))
+            except:
+                break
 
-    async def on_message(self, message):
-          pass
+    async def on_message(self, message:discord.Message):
+        print(message.content)
+        if(message.content.lower().startswith("!id")):
+            await message.channel.send("Your ID is: "+str(message.author.id))
+        
 
-if __name__ == '__main__':
+if __name__ == '__main__': 
     client = SpamingBoot()
     client.run(conf.sAPIkey)
