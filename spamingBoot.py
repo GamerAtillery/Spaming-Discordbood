@@ -1,5 +1,4 @@
 import discord
-from discord.guild import Guild
 import conf
 
 
@@ -21,6 +20,11 @@ class SpamingBoot(discord.Client):
         print(message.content)
         if(message.content.lower().startswith("!id")):
             await message.channel.send("Your ID is: "+str(message.author.id))
+
+
+
+    def getid(eingabe:str)->int:
+        return 295212845828931584
         
 
 if __name__ == '__main__': 
