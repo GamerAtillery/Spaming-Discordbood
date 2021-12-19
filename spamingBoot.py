@@ -24,7 +24,7 @@ class SpamingBoot(discord.Client):
 
 
     async def spamToUser(self, user:discord.User):
-        await user.send("test", delete_after=5.0)
+        await user.send("währe noch bei einer runde dabei LG Chris", delete_after=5.0)
         return
 
     def getid(self, eingabe:str)->list[int]:
@@ -35,11 +35,12 @@ class SpamingBoot(discord.Client):
         for z in list(sEingabe):
             if z == "<":
                 bAdd = True
-                iPos = iPos + 1
+                
                 lTags.append("")                
             if z == ">":
                 bAdd = False
                 lTags[iPos] = int(lTags[iPos])
+                iPos = iPos + 1
             if bAdd == True and z.isdigit():
                 lTags[iPos] = lTags[iPos] + z
         print(lTags)
