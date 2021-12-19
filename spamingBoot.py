@@ -12,6 +12,8 @@ class SpamingBoot(discord.Client):
 
     async def on_message(self, message:discord.Message):
         print(message.content)
+        if message.author == client.user:
+            return
         if(message.content.lower().startswith("!id")):
             await message.channel.send("Your ID is: "+str(message.author.id))
         if (message.content.lower().startswith("!spam")):
