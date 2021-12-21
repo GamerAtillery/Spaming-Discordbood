@@ -26,8 +26,18 @@ class SpamingBoot(discord.Client):
 
 
     async def spamToUser(self, user:discord.User):
-        await user.send("währe noch bei einer runde dabei LG Chris", delete_after=5.0)
+        await user.send("Verständlich!", delete_after=5.0)
         return
+
+
+
+    async def spamToChris(self, message:discord.Message, user:discord.User):
+        verständlich = "Verständlich"
+        if (message.content == verständlich):
+            await user.send("Ich muss aufs Klo.")
+        return
+
+
 
     def getid(self, eingabe:str)->list[int]:
         lTags = []
