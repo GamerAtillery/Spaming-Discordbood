@@ -1,8 +1,6 @@
-from re import U
 import discord
 import conf
-
-
+import messageManagement
 
 
 class SpamingBoot(discord.Client):
@@ -29,9 +27,9 @@ class SpamingBoot(discord.Client):
 
 
     async def spamToUser(self, user:discord.User):
-        if str(user.id) == "311838445301661696":
+        if str(user.id) == conf.niklas:
             for i in range(1, 20):
-                await user.send("Chris we wanna see you on Rainbow again", delete_after=10.0)
+                await user.send(messageManagement.getRandomMessage(str(user.name)), delete_after=10.0)
         return
 
 
