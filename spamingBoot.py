@@ -1,9 +1,12 @@
+from re import M
 import discord
 import conf
 import messageManagement
 
 
 class SpamingBoot(discord.Client):
+    oMessageClass = messageManagement.MessageManagement()
+
     async def on_ready(self):
         print("ich habe mich eingeloggt.")
 
@@ -12,6 +15,8 @@ class SpamingBoot(discord.Client):
         print(message.content)
         if message.author == client.user:
             return
+        if(message.content.lower().startswith("!help")):
+            await message.channel.send(self.oMessageClass.getHelp())
         if(message.content.lower().startswith("!id")):
             await message.channel.send("Your ID is: "+str(message.author.id))
         if (message.content.lower().startswith("!spam")):
@@ -24,12 +29,24 @@ class SpamingBoot(discord.Client):
 
         if (message.content.lower().startswith("verständlich")):
             await message.author.send("Ich muss aufs Klo, kannst du mir bitte Klopapier bringen?")
+        
+        if (message.content.lower().startswith("!addmessage")):
+            entry = str(message.content).split('"')[1]
+            self.oMessageClass.addMessage(entry)
+            await message.channel.send("message added")
+        if (message.content.lower().startswith("!addlink")):
+            entry = str(message.content).split('"')[1]
+            self.oMessageClass.addMessage(entry, 0)
+            await message.channel.send("message added")
 
 
     async def spamToUser(self, user:discord.User):
-        if str(user.id) == conf.niklas:
-            for i in range(1, 20):
-                await user.send(messageManagement.getRandomMessage(str(user.name)), delete_after=10.0)
+        for i in range(1, 20):
+            message, time = self.oMessageClass.getRandomMessage(str(user.name))
+            if time > 0:
+                await user.send(message, delete_after=10.0)
+            else:
+                await user.send(message)
         return
 
 
