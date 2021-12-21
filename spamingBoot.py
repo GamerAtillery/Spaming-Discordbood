@@ -31,14 +31,6 @@ class SpamingBoot(discord.Client):
 
 
 
-    async def spamToChris(self, message:discord.Message, user:discord.User):
-        verständlich = "Verständlich"
-        if (message.content == verständlich):
-            await user.send("Ich muss aufs Klo.")
-        return
-
-
-
     def getid(self, eingabe:str)->list[int]:
         lTags = []
         sEingabe = str(eingabe)
