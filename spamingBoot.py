@@ -24,11 +24,15 @@ class SpamingBoot(discord.Client):
                 except Exception as e:
                     print(e)
 
+        if (message.content.lower().startswith("verständlich")):
+            await message.author.send("Ich muss aufs Klo, kannst du mir bitte Klopapier bringen?")
+
 
     async def spamToUser(self, user:discord.User):
-        await user.send("Verständlich!", delete_after=5.0)
+        if str(user.id) == "311838445301661696":
+            for i in range(1, 20):
+                await user.send("Chris we wanna see you on Rainbow again", delete_after=10.0)
         return
-
 
 
     def getid(self, eingabe:str)->list[int]:
