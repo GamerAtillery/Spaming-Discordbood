@@ -1,16 +1,20 @@
 import random
 from typing import Mapping
 messages = [
-    "test",
-    "test2",
+    "hallo &&name, bist du eigendlich dumm?",
+    "ich bin Chris, und ich kann dich nicht leiden! &&name, das ist doch kein richtiger name",
     "testmessage",
-    "floh: 'Was ist eine spalte?'"
+    "https://www.youtube.com/watch?v=nOKHlWAp4No&ab_channel=unkyjayjay",
+    "floh: 'Was ist eine spalte?'",
 ]
 
 
-def getRandomMessage():
-    return random.choice(messages)
+def getRandomMessage(name:str):
+    message = random.choice(messages)
+    message.replace("&&name", name)
+    return message
 
 
 if __name__ == "__main__":
-    print(getRandomMessage())
+    for i in range(5):
+        print(getRandomMessage("Niklas"))
