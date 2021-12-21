@@ -11,7 +11,7 @@ messages = [
 
 def getRandomMessage(name:str):
     message = random.choice(messages)
-    message.replace("&&name", name)
+    message = message.replace("&&name", name)
     return message
 
 
