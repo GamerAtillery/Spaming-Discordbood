@@ -2,6 +2,7 @@
 import discord
 import conf
 import messageManagement
+from keep_alive import keep_alive
 
 
 class SpamingBoot(discord.Client):
@@ -73,4 +74,5 @@ class SpamingBoot(discord.Client):
 
 if __name__ == '__main__': 
     client = SpamingBoot()
+    keep_alive()
     client.run(conf.sAPIkey)
