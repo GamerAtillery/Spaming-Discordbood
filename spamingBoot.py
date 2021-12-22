@@ -3,13 +3,21 @@ import discord
 import conf
 import messageManagement
 from keep_alive import keep_alive
+from methodsUserCommand import MethodsUsercommand
 
 
 class SpamingBoot(discord.Client):
     oMessageClass = messageManagement.MessageManagement()
+    methodsUsercommand:MethodsUsercommand
+    
+
 
     async def on_ready(self):
         print("ich habe mich eingeloggt.")
+        self.methodsUsercommand = MethodsUsercommand(self)
+
+
+
 
 
     async def on_message(self, message:discord.Message):
@@ -19,7 +27,7 @@ class SpamingBoot(discord.Client):
         if(message.content.lower().startswith("!help")):
             await message.channel.send(self.oMessageClass.getHelp())
         if(message.content.lower().startswith("!id")):
-            await message.channel.send("Your ID is: "+str(message.author.id))
+            await self.methodsUsercommand.sendID(message)
         if(message.content.lower().startswith("!filldb")):
             result = self.oMessageClass.dataManagement.fillDatabaseFromCSV()
             await message.channel.send(result)
