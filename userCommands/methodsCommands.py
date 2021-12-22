@@ -19,9 +19,9 @@ class MethodsCommands(MethodTranslationTable):
         for key, command in self.dCommandList.items():
             description:str = command[1]
             if description.startswith("->"):
-                message.channel.send("\n" + key +" "+command)
+                message.channel.send("\n" + key +" "+description)
             elif(bAll):
-                message.channel.send("\n" + key +" ->"+command)
+                message.channel.send("\n" + key +" ->"+description)
 
     async def fillDB(self, message:discord.Message):
         result = self.mainclass.oMessageClass.dataManagement.fillDatabaseFromCSV()
