@@ -24,7 +24,7 @@ class SpamingBoot(discord.Client):
         command = self.methodsUsercommand[str(message.content)]
         if command != None:
             try:
-                command(message)
+                await command(message)
             except Exception as e:
                 print(e)
 
