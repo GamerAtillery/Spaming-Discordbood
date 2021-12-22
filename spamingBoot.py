@@ -20,6 +20,9 @@ class SpamingBoot(discord.Client):
             await message.channel.send(self.oMessageClass.getHelp())
         if(message.content.lower().startswith("!id")):
             await message.channel.send("Your ID is: "+str(message.author.id))
+        if(message.content.lower().startswith("!filldb")):
+            result = self.oMessageClass.dataManagement.fillDatabaseFromCSV()
+            await message.channel.send(result)
         if (message.content.lower().startswith("!spam")):
             for iUserid in self.getid(message.content):
                 try:
@@ -27,7 +30,14 @@ class SpamingBoot(discord.Client):
                     await self.spamToUser(user)
                 except Exception as e:
                     print(e)
-
+        if (message.content.lower().startswith("!nyancat")):
+          for iUserid in self.getid(message.content):
+                try:
+                    user:discord.User = await self.fetch_user(iUserid)
+                    await self.spamNyanCat(user)
+                except Exception as e:
+                  print(e) 
+        
         if (message.content.lower().startswith("verständlich")):
             await message.author.send("Ich muss aufs Klo, kannst du mir bitte Klopapier bringen?")
         
@@ -41,6 +51,17 @@ class SpamingBoot(discord.Client):
             await message.channel.send("message added")
 
 
+    async def spamNyanCat(self, user:discord.User):
+        for i in range (1, 10):
+          await user.send("https://youtu.be/QH2-TGUlwu4")
+
+
+    #async def 
+
+
+
+
+
     async def spamToUser(self, user:discord.User):
         for i in range(1, 20):
             message, time = self.oMessageClass.getRandomMessage(str(user.name))
@@ -48,6 +69,10 @@ class SpamingBoot(discord.Client):
                 await user.send(message, delete_after=10.0)
             else:
                 await user.send(message)
+        if str(user.name) == "Sheller2003":
+            await user.send("https://youtu.be/NRduatRzkfc?t=8")
+        if str(user.name) == "54Garde":
+            await user.send("https://youtu.be/rhvF2_JkDhQ")
         return
 
 
@@ -72,7 +97,13 @@ class SpamingBoot(discord.Client):
 
         
 
-if __name__ == '__main__': 
-    client = SpamingBoot()
-    keep_alive()
-    client.run(conf.sAPIkey)
+if __name__ == '__main__':
+  if conf.sAPIkey == "":
+    import os
+    conf.sAPIkey = input("key:")
+    os.system("clear")
+    
+  client = SpamingBoot()
+  keep_alive()
+    
+  client.run(conf.sAPIkey)
