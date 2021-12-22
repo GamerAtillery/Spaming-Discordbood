@@ -1,5 +1,5 @@
 import discord
-import conf
+import Database.conf as conf
 
 
 

@@ -1,5 +1,5 @@
 import random
-from dataManagement import *
+from .dataManagement import DataManagement
 
 class MessageManagement():
     dMessages = {}
@@ -21,6 +21,7 @@ class MessageManagement():
         return message, time
     
     def addMessage(self, message, disappear=5):
+        self.dMessages[message] = disappear
         return self.dataManagement.setMessage(message, disappear)
     
     def getHelp(self):

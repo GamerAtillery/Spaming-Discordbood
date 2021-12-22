@@ -1,20 +1,22 @@
 
 import discord
-import conf
-import messageManagement
+import Database.conf as conf
+import Database.messageManagement as messageManagement
 from keep_alive import keep_alive
-from methodsUserCommand import MethodsUsercommand
+from userCommands import *
 
 
 class SpamingBoot(discord.Client):
     oMessageClass = messageManagement.MessageManagement()
-    methodsUsercommand:MethodsUsercommand
+    methodsUsercommand:DictCommands
+    methodsUserReactions:DictReaction
     
 
 
     async def on_ready(self):
         print("ich habe mich eingeloggt.")
-        self.methodsUsercommand = MethodsUsercommand(self)
+        self.methodsUsercommand = DictCommands(self)
+        self.methodsUserReactions = DictReaction(self)
 
 
 

@@ -1,22 +1,12 @@
+from userCommands.methodTranslationTable import MethodTranslationTable
 import discord
-class MethodsUsercommand(dict):
 
-    dCommandList:dict
-    mainclass:discord.Client
-
-    def __init__(self, mainclass) -> None:
+class MethodsCommands(MethodTranslationTable):
+    def __init__(self, mainclass):
         self.mainclass = mainclass
-        self.dCommandList = {
-            "!id":(self.sendID,"gibt die eigene UserID zurück"),
-            "!help":(self.getHelp, "zeigt die Hilfe an"),
-            "!filldb":(self.fillDB, "Macht einen Eintrag in die Datenbank!"),
-            "!nyancat":(self.NyanCat, "Nyan Caaaat"),
-            "!spam":(self.Spam, "Spamt einen beliebigen Nutzer voll"),
-            "!addmessage":(self.AddMessage, "Fügt eine neue Spamnachricht hinzu"),
-            "!addlink":(self.AddLink, "Fügt einen neuen Link hinzu")
+        self.dCommandList = {}
 
-        }
-    
+
     async def sendID(self, message:discord.Message):
         await message.channel.send("Your ID is: "+str(message.author.id))
     
@@ -33,7 +23,6 @@ class MethodsUsercommand(dict):
                 await self.spamNyanCat(user)
             except Exception as e:
                 print(e)
-
 
     async def Spam(self, message:discord.Message):
         for user in await self.mainclass.getId(message.content):
@@ -70,38 +59,3 @@ class MethodsUsercommand(dict):
         entry = str(message.content).split('"')[1]
         self.mainclass.oMessageClass.addMessage(entry, 0)
         await message.channel.send("message added")
-
-
-
-#_____________________________________________________________________________________________________________________________________
-
-    def __getitem__(self, key:str):
-        return self.get(key)
-
-    def get(self, key):
-        for command in self.dCommandList.keys():
-            if key.lower().startswith(command.lower()):
-                return self.dCommandList[command][0]
-        return None
-
-    def __setitem__(self, key:str, value):
-        raise Exception("function is not avaiable")
-    
-    def __str__(self):
-        return str(self.dCommandList)
-
-
-    def __len__(self):
-        return len(self.dCommandList)
-
-    def __iter__(self):
-        return iter(self.dCommandList)
-
-    def keys(self):
-        return self.dCommandList.keys()
-
-    def items(self):
-        return self.dCommandList.items()
-
-    def values(self):
-        return self.dCommandList.values()
