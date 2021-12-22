@@ -23,6 +23,7 @@ class SpamingBoot(discord.Client):
 
 
     async def on_message(self, message:discord.Message):
+        print(message.content)
         if message.author == client.user:
             return
         command = self.methodsUsercommand[str(message.content)]

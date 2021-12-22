@@ -1,4 +1,5 @@
 from userCommands.methodTranslationTable import MethodTranslationTable
+from userCommands.skripts import *
 import discord
 
 class MethodsCommands(MethodTranslationTable):
@@ -59,3 +60,12 @@ class MethodsCommands(MethodTranslationTable):
         entry = str(message.content).split('"')[1]
         self.mainclass.oMessageClass.addMessage(entry, 0)
         await message.channel.send("message added")
+    
+    async def onPenisGrowing(self, message: discord.Message):
+        import random
+        r = random.randint(1,10)
+        for length in range(0, r):
+            await message.channel.send(Penis.sizedPenis(length))
+    
+    async def onPenis(self, message: discord.Message):
+        await message.channel.send(Penis.generateMessage(str(message.author.display_name)))

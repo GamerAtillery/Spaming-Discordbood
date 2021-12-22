@@ -11,6 +11,8 @@ class DictCommands(MethodsCommands):
             "!nyancat":(self.NyanCat, "Nyan Caaaat"),
             "!spam":(self.Spam, "Spamt einen beliebigen Nutzer voll"),
             "!addmessage":(self.AddMessage, "Fügt eine neue Spamnachricht hinzu"),
-            "!addlink":(self.AddLink, "Fügt einen neuen Link hinzu")
+            "!addlink":(self.AddLink, "Fügt einen neuen Link hinzu"),
+            "!penis-growing":(self.onPenisGrowing, "you don't need a description here"),
+            "!penis":(self.onPenis, "you don't need a description here")
 
         }

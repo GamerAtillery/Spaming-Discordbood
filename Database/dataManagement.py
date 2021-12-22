@@ -4,7 +4,7 @@ if database == "replit":
   from replit import db
 
 consSpamMessages = ("sp_messages")
-consPathCSV = "Database\\messages.csv"
+consPathCSV = "messages.csv"
 
 class DataManagement():
   def __init__(self):
