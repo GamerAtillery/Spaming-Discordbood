@@ -65,7 +65,25 @@ class MethodsCommands(MethodTranslationTable):
         import random
         r = random.randint(1,10)
         for length in range(0, r):
-            await message.channel.send(Penis.sizedPenis(length))
-    
+            await message.channel.send( Penis.sizedPenis(length), delete_after=5.0)
+     
     async def onPenis(self, message: discord.Message):
         await message.channel.send(Penis.generateMessage(str(message.author.display_name)))
+    
+    async def showAllSpamMessages(self, message: discord.Message, link=True, sMessages=True):
+        for messageitem, delay  in self.mainclass.oMessageClass.dMessages.items():
+            delay = int(delay)
+            print(f"delay ={delay} type delay{type(delay)} messageitem={messageitem} {self.mainclass.oMessageClass.dMessages}")
+            if delay > 0 and sMessages:
+                await message.channel.send(messageitem )
+                continue
+            if delay == 0 and link:
+                await message.channel.send(messageitem)    
+                continue       
+        return
+    
+    async def showSpamMessagesText(self, message: discord.Message):
+        await self.showAllSpamMessages(message, link=False)
+    
+    async def showSpamMessagesLink(self, message: discord.Message):
+        await self.showAllSpamMessages(message, sMessages=False)

@@ -13,6 +13,9 @@ class DictCommands(MethodsCommands):
             "!addmessage":(self.AddMessage, "Fügt eine neue Spamnachricht hinzu"),
             "!addlink":(self.AddLink, "Fügt einen neuen Link hinzu"),
             "!penis-growing":(self.onPenisGrowing, "you don't need a description here"),
-            "!penis":(self.onPenis, "you don't need a description here")
+            "!penis":(self.onPenis, "you don't need a description here"),
+            "!showspammessages":(self.showAllSpamMessages,"show all speammessages from csv/database"),
+            "!showspamlinks":(self.showSpamMessagesLink,"show all speammessages from csv/database"),
+            "!showspamtexts":(self.showSpamMessagesText,"show all speammessages from csv/database"),
 
         }
