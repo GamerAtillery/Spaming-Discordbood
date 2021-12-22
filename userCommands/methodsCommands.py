@@ -14,6 +14,8 @@ class MethodsCommands(MethodTranslationTable):
     async def getHelp(self, message:discord.Message):
         if "-all" in str(message.content):
             bAll = True
+        else:
+            bAll = False
         for key, command in self.dCommandList.items():
             description:str = command[1]
             if description.startswith("->"):
