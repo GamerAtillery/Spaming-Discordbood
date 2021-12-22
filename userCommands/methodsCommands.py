@@ -12,7 +12,14 @@ class MethodsCommands(MethodTranslationTable):
         await message.channel.send("Your ID is: "+str(message.author.id))
     
     async def getHelp(self, message:discord.Message):
-        await message.channel.send(self.mainclass.oMessageClass.getHelp())
+        if "-all" in str(message.content):
+            bAll = True
+        for key, command in self.dCommandList.items():
+            description:str = command[1]
+            if description.startswith("->"):
+                message.channel.send("\n" + key +" "+command)
+            elif(bAll):
+                message.channel.send("\n" + key +" ->"+command)
 
     async def fillDB(self, message:discord.Message):
         result = self.mainclass.oMessageClass.dataManagement.fillDatabaseFromCSV()
