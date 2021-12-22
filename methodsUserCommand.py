@@ -79,7 +79,7 @@ class MethodsUsercommand(dict):
         return self.get(key)
 
     def get(self, key):
-        for command in self.dComandList.keys():
+        for command in self.dCommandList.keys():
             if key.lower().startswith(command.lower()):
                 return self.dCommandList[command][0]
         return None
