@@ -1,4 +1,4 @@
-from re import M
+
 import discord
 import conf
 import messageManagement
@@ -50,7 +50,7 @@ class SpamingBoot(discord.Client):
         return
 
 
-    def getid(self, eingabe:str)->list[int]:
+    def getid(self, eingabe:str)->list:
         lTags = []
         sEingabe = str(eingabe)
         bAdd = False
