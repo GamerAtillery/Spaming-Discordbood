@@ -33,7 +33,7 @@ class DataManagement():
         with open("messages.csv", "a") as file:
             file.write(f"{message};{disappear};\n")
             file.close()
-
+ 
   def getMessagesDict(self)->dict:
     if conf.database == "csv":
       return self.getMessagesFromCSV()
