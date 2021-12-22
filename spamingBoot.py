@@ -21,6 +21,8 @@ class SpamingBoot(discord.Client):
 
 
     async def on_message(self, message:discord.Message):
+        if message.author == client.user:
+            return
         command = self.methodsUsercommand[str(message.content)]
         if command != None:
             try:
