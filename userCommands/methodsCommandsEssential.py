@@ -14,10 +14,12 @@ class MethodsCommandsEssential(MethodTranslationTable):
             await message.channel.send("channel-id: "+str(message.channel.id))
             return
         if sMessage.startswith("!id-user"):
-            print(self.mainclass.getId(message.content))
             for user in await self.mainclass.getId(str(message.content)):
                 await message.channel.send(f"{user.name}:{user.id}")
             return
+        if sMessage.startswith("!id-emojie"):
+            pass
+
         await message.channel.send("Your ID is: "+str(message.author.id))
 
     

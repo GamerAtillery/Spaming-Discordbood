@@ -2,7 +2,7 @@ from re import T
 import discord
 
 class Authorisation():
-    lChannel12Names = ["commands"]
+    lChannel12Names = ["commands", "command"]
     lChannel12IDs = []
 
     async def checkForAuth0(message:discord.Message,)->bool:
