@@ -2,6 +2,7 @@ from userCommands.methodTranslationTable import MethodTranslationTable
 from userCommands.skripts import *
 import discord
 
+
 class MethodsCommands(MethodTranslationTable):
     def __init__(self, mainclass):
         self.mainclass = mainclass
@@ -24,10 +25,6 @@ class MethodsCommands(MethodTranslationTable):
             elif(bAll):
                 sMessage = sMessage + "\n" + key +" ->"+ description
         await message.channel.send(sMessage)
-
-    async def fillDB(self, message:discord.Message):
-        result = self.mainclass.oMessageClass.dataManagement.fillDatabaseFromCSV()
-        await message.channel.send(result)
 
     async def NyanCat(self, message:discord.Message):
         for user in await self.mainclass.getId(message.content):
@@ -72,15 +69,6 @@ class MethodsCommands(MethodTranslationTable):
         self.mainclass.oMessageClass.addMessage(entry, 0)
         await message.channel.send("message added")
     
-    async def onPenisGrowing(self, message: discord.Message):
-        import random
-        r = random.randint(1,10)
-        for length in range(0, r):
-            await message.channel.send( Penis.sizedPenis(length), delete_after=5.0)
-     
-    async def onPenis(self, message: discord.Message):
-        await message.channel.send(Penis.generateMessage(str(message.author.display_name)))
-    
     async def showAllSpamMessages(self, message: discord.Message, link=True, sMessages=True):
         for messageitem, delay  in self.mainclass.oMessageClass.dMessages.items():
             delay = int(delay)
@@ -98,3 +86,18 @@ class MethodsCommands(MethodTranslationTable):
     
     async def showSpamMessagesLink(self, message: discord.Message):
         await self.showAllSpamMessages(message, sMessages=False)
+
+
+    async def onPenis(self, message: discord.Message):
+        if str(message.content).startswith("!penis-growing"):
+            import random
+            r = random.randint(1, 10)
+            for length in range(0, r):
+                await message.channel.send(Penis.sizedPenis(length), delete_after=5.0)
+        elif str(message.content == "!penis"):
+            await message.channel.send(Penis.generateMessage(str(message.author.display_name)))
+
+
+
+
+
