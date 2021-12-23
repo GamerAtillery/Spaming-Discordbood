@@ -1,4 +1,3 @@
-
 import discord
 from discord.message import Message
 import Database.conf as conf
@@ -86,6 +85,7 @@ if __name__ == '__main__':
     os.system("clear")
     
   client = SpamingBoot()
-  keep_alive()
+  if conf.bWebOn:
+     keep_alive()
     
   client.run(conf.sAPIkey)
