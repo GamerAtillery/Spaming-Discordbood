@@ -21,7 +21,7 @@ class MethodsCommandsDev(MethodTranslationTable):
             return
         if sMessage.startswith("!dev-help"):
             return
-        
+            
     
 
     async def onChangeServer(self, message:discord.Message):
@@ -46,19 +46,12 @@ class MethodsCommandsDev(MethodTranslationTable):
         result = self.mainclass.oMessageClass.dataManagement.fillDatabaseFromCSV()
         await message.channel.send(result)
     
-    async def onDev(self, message:discord.Message):
-        sMessage = str(message.content).lower()
-        if sMessage.startswith("!dev-server="):
-            await self.onChangeServer(message)
-            return
-        if sMessage.startswith("!dev-server"):
-            await self.onServerStatus(message)
-            return
-        if sMessage.startswith("!dev-filldb"):
-            await self.dev_fillDB(message)
-            return
-        if sMessage.startswith("!dev-help"):
-            return
+
+    
+    async def onRun(self, message:discord.Message):
+        return
+    
+
         
 
         

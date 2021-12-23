@@ -9,7 +9,17 @@ class MethodsCommandsEssential(MethodTranslationTable):
         self.dCommandList = {}
     
     async def sendID(self, message:discord.Message):
+        sMessage = str(message.content).lower()
+        if sMessage.startswith("!id-channel"):
+            await message.channel.send("channel-id: "+str(message.channel.id))
+            return
+        if sMessage.startswith("!id-user"):
+            print(self.mainclass.getId(message.content))
+            for user in await self.mainclass.getId(str(message.content)):
+                await message.channel.send(f"{user.name}:{user.id}")
+            return
         await message.channel.send("Your ID is: "+str(message.author.id))
+
     
     async def getHelp(self, message:discord.Message):
         if "-all" in str(message.content):

@@ -39,7 +39,7 @@ class MethodsCommands(MethodTranslationTable):
     async def showAllSpamMessages(self, message: discord.Message, link=True, sMessages=True):
         for messageitem, delay  in self.mainclass.oMessageClass.dMessages.items():
             delay = int(delay)
-            print(f"delay ={delay} type delay{type(delay)} messageitem={messageitem} {self.mainclass.oMessageClass.dMessages}")
+            #print(f"delay ={delay} type delay{type(delay)} messageitem={messageitem} {self.mainclass.oMessageClass.dMessages}")
             if delay > 0 and sMessages:
                 await message.channel.send(messageitem )
                 continue
