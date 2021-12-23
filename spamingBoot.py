@@ -1,5 +1,6 @@
 
 import discord
+from discord.message import Message
 import Database.conf as conf
 import Database.messageManagement as messageManagement
 from keep_alive import keep_alive
@@ -60,6 +61,15 @@ class SpamingBoot(discord.Client):
         print(lTags)
         return lUsers
 
+    async def clearChannel(self, message:discord.Message):
+        if not isinstance(message.channel, discord.channel.DMChannel): #check's if message from dm
+            await message.channel.send( 'You can use this command only in your direct message channel with me!\n')
+            return
+        await message.channel.send( 'Clearing messages...')
+        msg:discord.Message
+        async for msg in message.channel.history(limit=200):
+            await msg.delete()
+        
         
 
 if __name__ == '__main__':
