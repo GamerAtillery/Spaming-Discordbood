@@ -24,16 +24,6 @@ class MessageManagement():
         self.dMessages[message] = disappear
         return self.dataManagement.setMessage(message, disappear)
     
-    def getHelp(self):
-        return '''
-        !help -> Hilfe
-        !spam @username -> spamt den User voll
-        !addMessage "" -> fügt die Message hinzu
-        !addLink "" -> fügt einen Link zur Liste hinzu
-        !id -> gibt die Id des benutzers zurück
-        !nyancat @username -> NyanCaaaat
-        !filldb -> filldb.csv
-        '''
 
 
 if __name__ == "__main__":
