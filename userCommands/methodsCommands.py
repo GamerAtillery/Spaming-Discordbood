@@ -23,7 +23,7 @@ class MethodsCommands(MethodTranslationTable):
                 sMessage = sMessage + "\n" + key +" "+description
             elif(bAll):
                 sMessage = sMessage + "\n" + key +" ->"+ description
-            await message.channel.send(sMessage)
+        await message.channel.send(sMessage)
 
     async def fillDB(self, message:discord.Message):
         result = self.mainclass.oMessageClass.dataManagement.fillDatabaseFromCSV()
