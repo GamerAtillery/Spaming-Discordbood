@@ -10,6 +10,6 @@
 
 ## Links
 [to Replit Project](https://replit.com/@Sheller2003/Spaming-Discordbood#README.md)<br>
-[to Website](https://Spaming-Discordbood.sheller2003.repl.co)
-[to UptimeRobot](https://uptimerobot.com/dashboard#mainDashboard)
+[to Website](https://Spaming-Discordbood.sheller2003.repl.co)<br>
+[to UptimeRobot](https://uptimerobot.com/dashboard#mainDashboard)<br>
 [to DiscordDelveloperPortal](https://discord.com/developers/teams)
