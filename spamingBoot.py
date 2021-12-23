@@ -4,6 +4,7 @@ import Database.conf as conf
 import Database.messageManagement as messageManagement
 from keep_alive import keep_alive
 from userCommands import *
+from authorisation import Authorisation
 
 
 class SpamingBoot(discord.Client):
@@ -25,17 +26,23 @@ class SpamingBoot(discord.Client):
 
 
     async def on_message(self, message:discord.Message):
-        if self.bMuted and not str(message.content).lower().startswith("!dev-server"):
-            return
+        if self.bMuted:
+            if isinstance(message.channel, discord.channel.DMChannel) and str(message.content).lower().startswith("!dev-server"):
+                pass
+            else:
+                return            
         print(message.content)
         if message.author == client.user:
             return
-        command = self.methodsUsercommand[str(message.content)]
-        if command != None:
-            try:
-                await command(message)
-            except Exception as e:
-                print(e)
+        tulpelCommand = self.methodsUsercommand[str(message.content)]
+        if tulpelCommand == None:
+            return
+        if not await Authorisation.checkChannelAuth(message, tulpelCommand[2]):
+            return
+        try:
+            await tulpelCommand[0](message)
+        except Exception as e:
+            print(e)
 
 
 

@@ -14,7 +14,7 @@ class MethodTranslationTable(dict):
     def get(self, key):
         for command in self.dCommandList.keys():
             if key.lower().startswith(command.lower()):
-                return self.dCommandList[command][0]
+                return self.dCommandList[command]
         return None
 
     def __setitem__(self, key:str, value):
