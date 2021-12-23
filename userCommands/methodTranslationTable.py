@@ -1,11 +1,13 @@
 import discord
-
+from userCommands.skripts import *
 class MethodTranslationTable(dict):
     dCommandList:dict
     mainclass:discord.Client
+    spamCommands:SpamCommands
 
     def __init__(self, mainclass):
         self.mainclass = mainclass
+        self.spamCommands = SpamCommands(mainclass)
         return
 
     def __getitem__(self, key:str):

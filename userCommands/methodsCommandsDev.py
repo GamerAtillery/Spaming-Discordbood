@@ -5,8 +5,23 @@ import discord
 
 class MethodsCommandsDev(MethodTranslationTable):
     def __init__(self, mainclass):
-        self.mainclass = mainclass
+        super().__init__(mainclass)
         self.dCommandList = {}
+    
+    async def onDev(self, message:discord.Message):
+        sMessage = str(message.content).lower()
+        if sMessage.startswith("!dev-server="):
+            await self.onChangeServer(message)
+            return
+        if sMessage.startswith("!dev-server"):
+            await self.onServerStatus(message)
+            return
+        if sMessage.startswith("!dev-filldb"):
+            await self.dev_fillDB(message)
+            return
+        if sMessage.startswith("!dev-help"):
+            return
+        
     
 
     async def onChangeServer(self, message:discord.Message):

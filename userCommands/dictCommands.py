@@ -1,10 +1,11 @@
 from userCommands.methodsCommands import MethodsCommands
 from userCommands.methodsCommandsDev import MethodsCommandsDev
+from userCommands.methodsCommandsEssential import MethodsCommandsEssential
 
 
-class DictCommands(MethodsCommands, MethodsCommandsDev):
+class DictCommands(MethodsCommands, MethodsCommandsDev, MethodsCommandsEssential):
     def __init__(self, mainclass):
-        self.mainclass = mainclass
+        super().__init__(mainclass)
         # "key":(self.method, description, authorisation )
         self.dCommandList = {
             "!id":(self.sendID,"->gibt die eigene UserID zurück",3),
