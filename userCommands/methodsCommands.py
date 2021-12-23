@@ -13,7 +13,10 @@ class MethodsCommands(MethodTranslationTable):
     async def NyanCat(self, message:discord.Message):
         for user in await self.mainclass.getId(message.content):
             try:
-                await self.spamCommands.spamNyanCat(user)
+                if str(message.content).startswith("!nyancat-text"):
+                    await self.spamCommands.spamNyanCatText(user)
+                else:
+                    await self.spamCommands.spamNyanCat(user)
             except Exception as e:
                 print(e)
 
