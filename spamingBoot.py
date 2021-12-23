@@ -11,6 +11,8 @@ class SpamingBoot(discord.Client):
     oMessageClass = messageManagement.MessageManagement()
     methodsUsercommand:DictCommands
     methodsUserReactions:DictReaction
+    bMuted = False
+    sServerID = conf.sServerID
     
 
 
@@ -24,6 +26,8 @@ class SpamingBoot(discord.Client):
 
 
     async def on_message(self, message:discord.Message):
+        if self.bMuted and not str(message.content).lower().startswith("!dev-server"):
+            return
         print(message.content)
         if message.author == client.user:
             return
@@ -68,7 +72,10 @@ class SpamingBoot(discord.Client):
         await message.channel.send( 'Clearing messages...')
         msg:discord.Message
         async for msg in message.channel.history(limit=200):
-            await msg.delete()
+            try:
+                await msg.delete()
+            except Exception as e:
+                print(e)
         
         
 
