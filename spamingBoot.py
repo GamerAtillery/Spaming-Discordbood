@@ -2,6 +2,7 @@ import discord
 from discord.message import Message
 import Database.conf as conf
 import Database.messageManagement as messageManagement
+import Database.userManagement as userManagement
 from keep_alive import keep_alive
 from userCommands import *
 from authorisation import Authorisation
@@ -9,6 +10,7 @@ from authorisation import Authorisation
 
 class SpamingBoot(discord.Client):
     oMessageClass = messageManagement.MessageManagement()
+    oUserClass = userManagement.UserManagement()
     methodsUsercommand:DictCommands
     methodsUserReactions:DictReaction
     bMuted = False
@@ -39,6 +41,7 @@ class SpamingBoot(discord.Client):
             return
         if not await Authorisation.checkChannelAuth(message, tulpelCommand[2]):
             return
+        self.oUserClass.checkForTempLock(str(message.author.id))
         try:
             await tulpelCommand[0](message)
         except Exception as e:

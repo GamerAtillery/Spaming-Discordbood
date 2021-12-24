@@ -1,3 +1,4 @@
+from discord import channel
 from userCommands.methodTranslationTable import MethodTranslationTable
 from userCommands.skripts import *
 import discord
@@ -28,7 +29,6 @@ class MethodsCommands(MethodTranslationTable):
                 print(e)
 
 
-
     async def AddMessage(self, message: discord.Message):
         entry = str(message.content).split('"')[1]
         self.mainclass.oMessageClass.addMessage(entry)
@@ -49,6 +49,14 @@ class MethodsCommands(MethodTranslationTable):
             if delay == 0 and link:
                 await message.channel.send(messageitem)    
                 continue       
+        return
+    
+    async def onHacking(self, message: discord.Message):
+        users = await self.mainclass.getId(str(message.content))
+        if users == []:
+            await message.channel.send("no target selected")
+            return
+        await self.spamCommands.onHackingNyanCatText(users[0], message)
         return
     
     async def showSpamMessagesText(self, message: discord.Message):
