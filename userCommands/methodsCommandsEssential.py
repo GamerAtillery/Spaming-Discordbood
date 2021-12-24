@@ -38,7 +38,9 @@ class MethodsCommandsEssential(MethodTranslationTable):
         await message.channel.send(sMessage)
     
     async def onStop(self, message:discord.Message):
-        if "-all" in str(message.content):
-            pass
-        print(self.mainclass.oUserClass.aktivateKey(str(message.author.id)))
         await message.channel.send("stopped")
+        if "-all" in str(message.content):
+            self.mainclass.oUserClass.onStop(str(message.author.id), "", True)
+            return
+        self.mainclass.oUserClass.onStop(str(message.author.id), message.channel.id, True)
+        

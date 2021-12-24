@@ -2,6 +2,7 @@ import random
 import discord
 from discord import user
 from discord import channel
+import asyncio
 class SpamCommands():
     lCatHeads = [":cat:",":scream_cat:",":joy_cat:",":smile_cat:"]
 
@@ -15,14 +16,17 @@ class SpamCommands():
     def __init__(self, mainclass) -> None:
         self.mainclass = mainclass
     
-    async def spamNyanCat(self, user:discord.User):
+    async def spamNyanCatVideo(self, user:discord.User):
         for i in range (1, 10):
+          await asyncio.sleep(1)
           await user.send("https://youtu.be/QH2-TGUlwu4")
     
     async def spamNyanCatText(self, user:discord.User, messageToUser="", bVideo=True):
         for line in self.getNyanCatList(messageToUser):
+            await asyncio.sleep(1)
             await user.send(line)
         if bVideo:
+            await asyncio.sleep(1)
             await user.send("https://youtu.be/QH2-TGUlwu4")
         return
     
@@ -55,24 +59,34 @@ class SpamCommands():
     
     async def onHackingNyanCatText(self, user:discord.User, message:discord.Message):
         iRate = random.randint(0,10)
-        await message.channel.send(":space_invader: try hacking " + user.name + ".....")
-        iAttacks = 20
         iRate = 10
+        iAttacks = 20
+        sStartMessage = ":space_invader: try hacking " + user.name + "....."
+        outputMessage:discord.Message = await message.channel.send(sStartMessage)
+        
         key = self.mainclass.oUserClass.setNewStopKey(str(user.id), "hacking")
         if key == "":
-            await message.channel.send(":shield: failed to hack user, can't connect to " + user.name + f" Successrate(-1000/{iAttacks}) **don't try it again!** :police_officer:")
+            await outputMessage.edit(content = ":shield: failed to hack user, can't connect to " + user.name + f" Successrate(-1000/{iAttacks}) **don't try it again!** :police_officer:")
             return
-        if iRate <10:
-            await message.channel.send(":lock: failed to hack user, the firewal was too hot " + user.name + f" Successrate(0/{iAttacks})")
+        if iRate <9:
+            await  outputMessage.edit(content =":lock: "+ self.getRandomFailMessageHacking() + user.name + f" Successrate(0/{iAttacks})")
+            self.mainclass.oUserClass.onStop(str(message.author.id))
             return
+        await user.send(":construction: you got hacked by " + message.author.display_name + "\n write `!stop` to stop the hack")
         for succes in range(iAttacks):
+            await asyncio.sleep(1)
             if not self.mainclass.oUserClass.checkForStop(str(user.id), key):
-                await message.channel.send(f":space_invader: success to hack {user.name} :computer: ! Successrate({succes}/{iAttacks})")
+                await  outputMessage.edit(content =f":space_invader: success to hack {user.name} :computer: ! Successrate({succes}/{iAttacks})")
                 return
             await self.NyanCatMessage(user, "!stop", False)
-            await message.channel.send(f"({succes}/{iAttacks})", delete_after=5)
-        await message.channel.send(f":space_invader: success to hack {user.name} :computer: ! Successrate({succes}/{iAttacks})")
-        self.mainclass.oUserClass.aktivateKey(str(message.author.id))
+            if succes%5 == 0:
+                await  outputMessage.edit(content = sStartMessage + f"({succes}/{iAttacks})",)
+            if not self.mainclass.oUserClass.checkForStop(str(user.id), key):
+                await outputMessage.edit(content =f":space_invader: success to hack {user.name} :computer: ! Successrate({succes}/{iAttacks})")
+                return
+        await  outputMessage.edit(content =f":space_invader: success to hack {user.name} :computer: ! Successrate({succes + 1}/{iAttacks})")
+        await user.send("the attack overrolled the complete system you was to late")
+        self.mainclass.oUserClass.onStop(str(message.author.id), tempLock=True)
 
         
 

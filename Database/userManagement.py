@@ -13,8 +13,8 @@ class UserManagement():
             return True
         return False
     
-    def setNewStopKey(self, userid:str, keyValue:str)->str:
-        key = userid + "_" + keyValue
+    def setNewStopKey(self, userid:str, keyValue:str, channel="*")->str:
+        key = userid + "_" + keyValue + "_" + str(channel)
         if not userid in self.dUsersReaction.keys():
             self.dUsersReaction[str(userid)] = []
         if key in self.dUsersReaction[userid]:
@@ -24,16 +24,28 @@ class UserManagement():
         self.dUsersReaction[userid].append(key)
         return key
     
-    def aktivateKey(self, userid:str):
+    def onStop(self, userid:str, channel= "*", tempLock=False):
+        channel = str(channel)
         print("acktivate Key")
-        self.l_locktTemporary.append(userid)
-        #if "§a" in self.dUsersReaction[userid]:
-            #self.dUsersReaction[userid] = ["§a", "§t"]
-            #return True
-        self.dUsersReaction[userid] = ["t"]
-        self.l_locktTemporary.append(userid)
+        l_newEntry = []
+        for entry in self.dUsersReaction[userid]:
+            entry = str(entry)
+            if entry.endswith("a") or entry.endswith("t"):
+                l_newEntry.append(entry)
+                continue
+            if (not entry.endswith(channel)) and (not entry.endswith("*")):
+                l_newEntry.append(entry)
+        self.dUsersReaction[userid] = l_newEntry
+        if tempLock:
+            self.TempLock(userid)
         print("useractions = " + str(self.dUsersReaction[userid]))
         return True
+    
+    def TempLock(self, userid:str,):
+        self.l_locktTemporary.append(userid)
+        self.dUsersReaction[userid] = ["t"]
+        self.l_locktTemporary.append(userid)
+
     
     def checkForTempLock(self, userid:str):
         print("checkForTemp")
@@ -50,7 +62,10 @@ class UserManagement():
             return False
         return True
     
-    def deleteKey(user, key):
+    def deleteKey(self, user, key:str):
+        if key in self.dUsersReaction[user.id]:
+            self.dUsersReaction[user.id]
+
         return
         
 
@@ -60,7 +75,7 @@ if __name__ == "__main__":
     key = c.setNewStopKey("niklas", "test")
     print(key)
     print(c.checkForStop("niklas", key))
-    print(c.aktivateKey("niklas"))
+    print(c.onStop("niklas"))
     print(c.checkForStop("niklas", key))
     print(c.checkForTempLock("niklas"))
     key = c.setNewStopKey("niklas", "test")

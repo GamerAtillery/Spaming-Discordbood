@@ -20,7 +20,7 @@ class DictCommands(MethodsCommands, MethodsCommandsDev, MethodsCommandsEssential
             "!showspamtexts":(self.showSpamMessagesText,"show all speammessages from csv/database",2),
             "!clear":(self.mainclass.clearChannel,"->clear the messages from the bot", 0),
             "!dev":(self.onDev, "development commands for more info: !dev-help",0),
-            "!hack":(self.onHacking, "hack an user !hack @username",2),
-            "!stop":(self.onStop, "stopp all atacks and messages", 3)
+            "!hack":(self.onHacking, "->hack an user !hack @username",2),
+            "!stop":(self.onStop, "->stopp all atacks and messages", 3)
 
         }
