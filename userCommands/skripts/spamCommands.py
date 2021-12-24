@@ -59,7 +59,6 @@ class SpamCommands():
     
     async def onHackingNyanCatText(self, user:discord.User, message:discord.Message):
         iRate = random.randint(0,10)
-        iRate = 10
         iAttacks = 20
         sStartMessage = ":space_invader: try hacking " + user.name + "....."
         outputMessage:discord.Message = await message.channel.send(sStartMessage)
