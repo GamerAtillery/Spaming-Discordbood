@@ -38,6 +38,8 @@ class SpamingBoot(discord.Client):
             return
         tulpelCommand = self.methodsUsercommand[str(message.content)]
         if tulpelCommand == None:
+            tulpelCommand = self.methodsUserReactions.get(str(message.content),str(message.channel.id))
+        if tulpelCommand == None:
             return
         if not await Authorisation.checkChannelAuth(message, tulpelCommand[2]):
             return
@@ -46,6 +48,7 @@ class SpamingBoot(discord.Client):
             await tulpelCommand[0](message)
         except Exception as e:
             print(e)
+
 
 
 

@@ -1,6 +1,7 @@
 from discord import channel
-from userCommands.methodTranslationTable import MethodTranslationTable
-from userCommands.skripts import *
+from .methodTranslationTable import MethodTranslationTable
+from .skripts import *
+from .skripts import *
 import discord
 
 
@@ -74,6 +75,14 @@ class MethodsCommands(MethodTranslationTable):
                 await message.channel.send(Penis.sizedPenis(length), delete_after=5.0)
         elif str(message.content == "!penis"):
             await message.channel.send(Penis.generateMessage(str(message.author.display_name)))
+
+    async def squidGame(self, message: discord.Message):
+        if str(message.content).startswith("!squidgame-bridge"):
+            pass
+        bObserve = await self.oSquidGame.onStartBrighGame(message)
+        if bObserve:
+            self.observe(str(message.channel.id))
+        print(f"{self.lObservedChannels=}")
 
 
 

@@ -1,7 +1,5 @@
 import random
 import discord
-from discord import user
-from discord import channel
 import asyncio
 class SpamCommands():
     lCatHeads = [":cat:",":scream_cat:",":joy_cat:",":smile_cat:"]

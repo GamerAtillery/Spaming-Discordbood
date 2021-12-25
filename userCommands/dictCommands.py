@@ -1,6 +1,6 @@
-from userCommands.methodsCommands import MethodsCommands
-from userCommands.methodsCommandsDev import MethodsCommandsDev
-from userCommands.methodsCommandsEssential import MethodsCommandsEssential
+from .methodsCommands import MethodsCommands
+from .methodsCommandsDev import MethodsCommandsDev
+from .methodsCommandsEssential import MethodsCommandsEssential
 
 
 class DictCommands(MethodsCommands, MethodsCommandsDev, MethodsCommandsEssential):
@@ -21,6 +21,8 @@ class DictCommands(MethodsCommands, MethodsCommandsDev, MethodsCommandsEssential
             "!clear":(self.mainclass.clearChannel,"->clear the messages from the bot", 0),
             "!dev":(self.onDev, "development commands for more info: !dev-help",0),
             "!hack":(self.onHacking, "->hack an user !hack @username",2),
-            "!stop":(self.onStop, "->stopp all atacks and messages", 3)
+            "!stop":(self.onStop, "->stopp all atacks and messages", 3),
+            "!squidgame":(self.squidGame, "->games from the series squidgame(-bridge)",2)
 
         }
+
