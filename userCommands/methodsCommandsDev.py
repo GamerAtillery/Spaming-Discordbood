@@ -40,12 +40,31 @@ class MethodsCommandsDev(MethodTranslationTable):
 
     
     async def onServerStatus(self, message:discord.Message):
+        #serverstatus = serverId, bMuted, database, startTime,
         return
     
     async def dev_fillDB(self, message:discord.Message):
         result = self.mainclass.oMessageClass.dataManagement.fillDatabaseFromCSV()
         await message.channel.send(result)
-    
+
+    async def dev_getDataBases(self, message:discord.Message):
+        return
+
+    async def showDataBase(self, message:discord.Message):
+        return
+
+    async def sendReleaseInfo(self, message:discord.Message):
+        return
+
+    async  def getLog(self, message:discord.Message):
+        return
+
+    async def stopTime(self,message:discord.Message):
+        return
+
+    async def onAuthorisation(self, message:discord.Message):
+        return
+
 
     
     async def onRun(self, message:discord.Message):
