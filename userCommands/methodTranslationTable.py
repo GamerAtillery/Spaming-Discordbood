@@ -14,8 +14,9 @@ class MethodTranslationTable(dict):
         return
 
     def observe(self, channelID:str):
+        if channelID in self.lObservedChannels:
+            return
         self.lObservedChannels.append(channelID)
-        self.lObservedChannels = list( dict.fromkeys(self.lObservedChannels) )
 
     def stopObserve(self, channelID:str):
         try:

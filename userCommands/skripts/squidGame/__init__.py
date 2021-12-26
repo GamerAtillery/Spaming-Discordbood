@@ -24,15 +24,21 @@ class SquidGame():
 
         return True
 
-    async def onMove(self, message:discord.Message)->bool:
-        if str(message.channel.id) in self.dOpenGamesBridge.keys():
-            bRunning = await self.dOpenGamesBridge[str(message.channel.id)].nextStep(message.content[1], message.author)
+    async def _onMove(self, message:discord.Message)->bool:
+        print("_onMove")
+        for a in list(str(message.content).lower()):
+            if not a in ["l", "r", "!"]:
+                return True
+            bRunning = await self.dOpenGamesBridge[str(message.channel.id)].nextStep(a, message.author)
             if not bRunning:
                 del self.dOpenGamesBridge[str(message.channel.id)]
                 self.bRunningGames = not len(self.dOpenGamesBridge) > 0
                 return False
-            print(f"{self.bRunningGames=}")
         return True
+
+    async def onMove(self, message:discord.Message)->bool:
+        if str(message.channel.id) in self.dOpenGamesBridge.keys():
+            return await self._onMove(message)
 
     async def deleteMessage(self,message:discord.Message):
         try:

@@ -10,22 +10,27 @@ class SquidGameBridge():
     green = (":green_square:")
     grey = (":blue_square:")
 
-    outputMessage:discord.Message
+    outputMessage:discord.Message = None
     outputChannel = discord.DMChannel
 
     def __init__(self,  lUserID:list, iMode=0) -> None:
         self.startTime = time.time()
         self.l_steps = []
+        self.l_killedMessages = []
         self.l_killedPlayer = []
         self.l_Player:list = lUserID
         self.iMode = iMode
 
     async def onStart(self, message:discord.Message):
         print("onStart bridgegame")
-        self.outputMessage:discord.Message = await message.channel.send(self.buildMessage())
-        self.outputChannel = message.channel
+        if self.outputMessage == None:
+            self.outputMessage:discord.Message = await message.channel.send(self.buildMessage())
+            self.outputChannel = message.channel
+        if str(message.author.id) in self.l_killedPlayer:
+            await message.channel.send(f"<@{message.author.id}> You are already dead in this game.", delete_after=20)
+            return
         self.l_Player.append(str(message.author.id))
-        self.l_Player = list(set(self.l_Player))
+        self.l_Player = list( dict.fromkeys(self.l_Player))
 
     def __buildNewLine(self, nr:int)->str:
         sLeftPlat = self.grey
@@ -33,7 +38,7 @@ class SquidGameBridge():
         if nr > len(self.l_steps):
             return f"{tab}{sLeftPlat} {sRightPlat} {str(nr)}. {line}"
         sCorrectPlat = self.l_steps[nr-1]
-        sKillMessage = self.l_killedPlayer[nr-1]
+        sKillMessage = self.l_killedMessages[nr - 1]
         if sCorrectPlat == "l":
             sLeftPlat = self.green
         if sCorrectPlat == "r":
@@ -50,10 +55,11 @@ class SquidGameBridge():
 
     def __checkForCorrectPlat(self, inputPlat:str, player:discord.User)->tuple:
         if inputPlat == self.l_steps[len(self.l_steps) - 1]:
-            self.l_killedPlayer.append("")
+            self.l_killedMessages.append("")
             return (True, "")
-        self.l_killedPlayer.append(":skull_crossbones: RIP" + player.display_name)
+        self.l_killedMessages.append(":skull_crossbones: RIP" + player.display_name)
         self.l_Player.remove(str(player.id))
+        self.l_killedPlayer.append(str(player.id))
         if self.l_Player == []:
             return (False, f"game over your score was {len(self.l_steps) - 1}")
         return (True, "")
@@ -76,7 +82,6 @@ class SquidGameBridge():
         return sMessage
 
     def getNextPlat(self, inputPlat:str)->str:
-        #lOptions = ["l", "r"]
         lOptions = ["l", "r"]
         inputPlat = inputPlat.lower().replace("!", "")
         if inputPlat not in lOptions:
@@ -105,7 +110,7 @@ class SquidGameBridge():
 if __name__ == '__main__':
     c = SquidGameBridge(lUserID=["niklas"], )
     c.l_steps = ["l", "r", "l"]
-    c.l_killedPlayer = ["", "", "killed"]
+    c.l_killedMessages = ["", "", "killed"]
     print(c.buildMessage(False ))
     print(c.getNextPlat("l"))
     print(c.getNextPlat("r"))
