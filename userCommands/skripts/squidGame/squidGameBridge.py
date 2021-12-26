@@ -13,7 +13,7 @@ class SquidGameBridge():
     outputMessage:discord.Message = None
     outputChannel = discord.DMChannel
 
-    def __init__(self,  lUserID:list, iMode=0) -> None:
+    def __init__(self,  lUserID:list, iMode=2) -> None:
         self.startTime = time.time()
         self.l_steps = []
         self.l_killedMessages = []

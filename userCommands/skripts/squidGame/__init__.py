@@ -15,7 +15,7 @@ class SquidGame():
         print("start bridgegame")
         if not str(message.channel.id) in self.dOpenGamesBridge.keys():
             if "-hard" in str(message.content):
-                game:SquidGameBridge = SquidGameBridge(lUserID=lUserIDs, iMode=2)
+                game:SquidGameBridge = SquidGameBridge(lUserID=lUserIDs, iMode=0)
             else:
                 game:SquidGameBridge = SquidGameBridge(lUserID=lUserIDs)
             await game.onStart(message)
