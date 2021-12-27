@@ -1,19 +1,38 @@
-from Database.conf import database
-
+from conf import database
+import os
 if database == "replit":
   from replit import db
 
 consSpamMessages = ("sp_messages")
 consPathCSV = "messages.csv"
 
-class DataManagement():
+class DataManagement(dict):
+  l_CSVFiles = []
+  dict_DatabaseCSV = {}
+  csvFileSingleVariables = "Variables.csv"
+
   def __init__(self):
-    if database == "replit":
-      if not consSpamMessages in db.keys():
-        self.fillDatabaseFromCSV()
+      self.sFolderPath = self.getFolderPathCSV()
+      if database == "csv":
+          self._initCSVDict
+      if database == "replit":
+          if not consSpamMessages in db.keys():
+            self.fillDatabaseFromCSV()
+
+  def getListOfCSVFiles(self):
+     lFiles = os.listdir(self.sFolderPath)
+     for file in lFiles:
+         if not ".csv" in file.lower():
+             continue
+         sFile = str(file).replace(".csv", "")
+         self.l_CSVFiles.append(sFile)
+
+
+
+
       
   
-  def getMessagesFromCSV(self):
+  def getFromCSV(self, dataField:str):
     dMessages = {}
     with open(consPathCSV, "r") as file:
                 for zeile in file:
@@ -50,8 +69,12 @@ class DataManagement():
       if consSpamMessages in db.keys():
         db[consSpamMessages][message] = disappear
     return
+
+  def getFolderPathCSV(self):
+      sPath = str(__file__).replace("dataManagement.py","")
+      return  sPath + "filescsv\\"
   
-  def fillDatabaseFromCSV(self):
+  def fillDatabaseFromCSV(self, dataField:str):
     print("fill Database")
     if database =="replit":
       try:
@@ -61,5 +84,64 @@ class DataManagement():
       except Exception as e:
           return e
     return f"database = {database}"
+
+
+
+  def __getitem__(self, key:str):
+        return self.get(key)
+
+  def get(self, key):
+      try:
+          if database == "csv":
+            return self.dict_DatabaseCSV[key]
+          if database == "replit":
+            return db[key]
+      except Exception as e:
+          print(f"error in database: key={key} " + str(e))
+
+  def __setitem__(self, key:str, value):
+      if database == "csv":
+          self.dict_DatabaseCSV[key] = value
+      if database == "replit":
+          db[key] = value
+
+  def __str__(self):
+      if database == "csv":
+        return str(self.dict_DatabaseCSV)
+      if database == "replit":
+        return str(dict(db))
+
+
+  def __len__(self):
+      if database == "csv":
+          return len(self.dict_DatabaseCSV)
+      if database == "replit":
+        return len(self.db.keys())
+
+  def __iter__(self):
+      if database == "csv":
+        return iter(self.dict_DatabaseCSV)
+      if database == "replit":
+        return iter(db)
+
+  def keys(self):
+      if database == "csv":
+        return self.dict_DatabaseCSV.keys()
+      if database == "replit":
+        return db.keys()
+
+  def items(self):
+      if database == "csv":
+          return self.dict_DatabaseCSV.items()
+      if database == "replit":
+          return db.items()
+
+  def values(self):
+      if database == "csv":
+          return self.dict_DatabaseCSV.values()
+      if database == "replit":
+          return db.values()
   
-  
+if __name__ == '__main__':
+    d =DataManagement()
+    print(d.getFolderPathCSV())
